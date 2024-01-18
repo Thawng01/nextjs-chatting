@@ -8,6 +8,8 @@ import Avatar from "@/components/user/Avatar";
 import { updateProfile, updateUsername } from "@/lib/user";
 import { useChattingStore } from "@/store";
 import { User } from "@/types/index-d";
+import { socket } from "@/lib/socket";
+import { logout } from "@/lib/cookie";
 
 const AccountPage = () => {
     const [edit, setEdit] = useState(false);
@@ -39,9 +41,20 @@ const AccountPage = () => {
         const form = new FormData();
         form.append("username", username);
         const res = await updateUsername(form, user._id!);
+        if (res?.status == 200) {
+            updateUser(res.data);
+            setEdit(false);
+        }
+    };
 
-        // updateUser(res?.data);
-        // setEdit(false);
+    const handleLogout = async () => {
+        const userData = {
+            _id: user._id,
+            username: user.username,
+        };
+        socket.emit("logout", userData);
+        socket.disconnect();
+        await logout();
     };
 
     return (
@@ -137,7 +150,10 @@ const AccountPage = () => {
                             </div>
                         )}
 
-                        <button className="w-[12rem] py-2 bg-[#f1f1f1] mt-5 rounded-lg font-semibold text-xl">
+                        <button
+                            onClick={handleLogout}
+                            className="w-[12rem] py-2 bg-[#f1f1f1] mt-5 rounded-lg font-semibold text-xl"
+                        >
                             Edit Your Profile
                         </button>
                     </div>
