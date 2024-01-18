@@ -154,7 +154,7 @@ const AccountPage = () => {
                             onClick={handleLogout}
                             className="w-[12rem] py-2 bg-[#f1f1f1] mt-5 rounded-lg font-semibold text-xl"
                         >
-                            Edit Your Profile
+                            Logout
                         </button>
                     </div>
                 </div>
