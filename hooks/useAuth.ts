@@ -33,6 +33,7 @@ const useAuth = () => {
             const res = await client.post('/auth', formData)
             await storeCookie(res.data.token)
             const user = jwtDecode(res.data.token)
+            console.log(user)
             setLoading(false)
             socket.connect()
             socket.emit('userAdded', user)

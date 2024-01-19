@@ -74,7 +74,6 @@ export const useChattingStore = create<State & Actions>((set) => ({
     },
 
     updateChatListMessage: (id: string | null, msg: Msg[]) => set((state) => ({
-
         ...state,
         chatUserLists: state.chatUserLists.map((list) => {
             console.log("store", msg)

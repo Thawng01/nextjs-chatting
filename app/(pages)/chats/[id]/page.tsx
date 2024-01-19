@@ -21,10 +21,10 @@ const Chats = async ({ params, searchParams }: Props) => {
     return (
         <div
             className={`${
-                chatId ? "block w-full sm:w-8/12 md:w-9/12" : "hidden"
+                chatId ? "block w-full md:w-7/12 lg:w-8/12" : "hidden"
             } h-screen flex`}
         >
-            <div className="h-screen w-full lg:w-8/12 flex-initial">
+            <div className="h-screen w-full flex-initial">
                 <StoreInitializer data={messages} type="messages" />
                 <Suspense fallback={<p>Loading...</p>}>
                     <MessageHeader
@@ -41,7 +41,7 @@ const Chats = async ({ params, searchParams }: Props) => {
                 />
                 <MessageInput userId={params.id} chatId={searchParams.chatId} />
             </div>
-            <UserInfo user={user} />
+            {/* <UserInfo user={user} /> */}
         </div>
     );
 };

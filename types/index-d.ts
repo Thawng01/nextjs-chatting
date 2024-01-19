@@ -37,7 +37,7 @@ export interface OnlineUser {
     _id: string;
     username: string;
     socketId: string;
-    profile?: string;
+    profile: string | undefined;
 }
 
 export interface Messages {

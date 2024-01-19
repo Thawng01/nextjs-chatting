@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+
 import SideUserItem from "./SideUserItem";
 import { ChatRoomList } from "@/types/index-d";
 import { useChattingStore } from "@/store";
-import { useSearchParams } from "next/navigation";
 import { socket } from "@/lib/socket";
 
 const ChatList = () => {
@@ -12,7 +13,6 @@ const ChatList = () => {
     const updateChatListMessage = useChattingStore(
         (store) => store.updateChatListMessage
     );
-
     const user = useChattingStore((store) => store.user);
 
     const searchParams = useSearchParams();
@@ -50,8 +50,8 @@ const ChatList = () => {
     }, [user._id, updateChatListMessage]);
 
     return (
-        <div className="h-[calc(100vh-80px)] overflow-y-auto">
-            <ul className="py-3">
+        <div className="h-[calc(100vh-137px)] overflow-y-auto">
+            <ul className="py-2">
                 {chatrooms?.map((chatList: ChatRoomList) => {
                     const active = chatId === chatList._id;
                     const self = chatList.sender._id === user._id;

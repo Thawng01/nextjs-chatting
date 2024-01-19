@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 
 import Avatar from "@/components/user/Avatar";
 import { formateDateInTime } from "@/lib/formatDate";
+import useScreenResize from "@/hooks/useScreenResize";
 
 interface Props {
     username: string;
@@ -25,9 +26,22 @@ const SideUserItem = ({
     isRead,
     createdAt,
 }: Props) => {
+    const elementRef = useRef<HTMLLIElement | null>(null);
+    const elementWidth = useScreenResize(elementRef);
+
+    let updatedMessage: string = message;
+    if (elementWidth > 340 && message.length > 24) {
+        updatedMessage = message.slice(0, 24) + "...";
+    } else if (elementWidth > 310 && message.length > 18) {
+        updatedMessage = message.slice(0, 18) + "...";
+    } else if (message.length > 16) {
+        updatedMessage = message.slice(0, 15) + "...";
+    }
+
     return (
         <li
-            className={`relative p-2 my-2 hover:bg-white ${
+            ref={elementRef}
+            className={`relative p-2 my-1 hover:bg-white ${
                 active ? "bg-white" : ""
             }`}
         >
@@ -54,9 +68,7 @@ const SideUserItem = ({
                                     : "text-black font-semibold"
                             }`}
                         >
-                            {message?.length > 22
-                                ? message?.slice(0, 22) + "..."
-                                : message}
+                            {updatedMessage}
                         </span>
                         <div className="flex items-center ml-3">
                             <div className="h-[2.5px] w-[2.5px] mr-1 rounded-full bg-[gray]" />

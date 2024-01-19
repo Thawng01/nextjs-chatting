@@ -16,23 +16,23 @@ export const formateDateInTime = (date: number) => {
         time = "Now";
     } else if (duration < hr) {
         const durationMin = Math.floor(duration / min);
-        const text = durationMin > 1 ? "mins ago" : "min ago";
+        const text = durationMin > 1 ? "mins" : "min";
         time = durationMin + " " + text;
     } else if (duration < day) {
         const durationHr = Math.floor(duration / hr);
-        const text = durationHr > 1 ? "hrs ago" : "hr ago";
+        const text = durationHr > 1 ? "hrs" : "hr";
         time = durationHr + " " + text;
     } else if (duration < mon) {
         const durationDay = Math.floor(duration / day);
-        const text = durationDay > 1 ? "days ago" : "day ago";
+        const text = durationDay > 1 ? "days" : "day";
         time = durationDay + " " + text;
     } else if (duration < yr) {
         const durationMon = Math.floor(duration / mon);
-        const text = durationMon > 1 ? "mons ago" : "mon ago";
+        const text = durationMon > 1 ? "mons" : "mon";
         time = durationMon + " " + text;
     } else {
         const durationYr = Math.floor(duration / yr);
-        const text = durationYr > 1 ? "yrs ago" : "yr ago";
+        const text = durationYr > 1 ? "yrs" : "yr";
         time = durationYr + " " + text;
     }
 

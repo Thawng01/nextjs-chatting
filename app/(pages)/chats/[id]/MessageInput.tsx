@@ -1,9 +1,8 @@
 "use client";
-import React, { FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { socket } from "@/lib/socket";
 import { useChattingStore } from "@/store";
-import { User } from "@/types/index-d";
-import useMessage from "@/hooks/useMessage";
+import type { User } from "@/types/index-d";
 
 interface Props {
     userId: string | undefined;
@@ -12,9 +11,18 @@ interface Props {
 
 const MessageInput = ({ userId, chatId }: Props) => {
     const [text, setText] = useState<string>("");
+    const [isTyping, setIsTyping] = useState<boolean>(false);
 
     const user: User = useChattingStore((store) => store.user);
     const chatlist = useChattingStore((store) => store.getChatList);
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setText(e.target.value);
+        socket.emit("user-typing", userId);
+    };
+    const handleBlur = () => {
+        socket.emit("stop-typing", userId);
+    };
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,8 +39,29 @@ const MessageInput = ({ userId, chatId }: Props) => {
         setText("");
     };
 
+    useEffect(() => {
+        socket.on("typing", (id) => {
+            if (user._id === id && !isTyping) {
+                setIsTyping(true);
+            }
+        });
+    }, [user._id, isTyping]);
+
+    useEffect(() => {
+        socket.on("stopTyping", (id) => {
+            if (user._id === id && isTyping) {
+                setIsTyping(false);
+            }
+        });
+    }, [user._id, isTyping]);
+
     return (
-        <div className="bg-[#f1f1f1] h-16 w-full flex flex-col justify-center px-2">
+        <div className="relative bg-[#f1f1f1] h-16 w-full flex flex-col justify-center px-2">
+            {isTyping && (
+                <p className="absolute -top-5 text-[gray] text-sm italic">
+                    Typing ...
+                </p>
+            )}
             <form
                 onSubmit={handleSubmit}
                 className="w-full flex items-center gap-x-2"
@@ -42,7 +71,8 @@ const MessageInput = ({ userId, chatId }: Props) => {
                      focus:ring-2 focus:ring-sky-600"
                     placeholder="Message..."
                     value={text}
-                    onChange={(e) => setText(e.target.value)}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                 />
                 <button className="bg-sky-600 text-white py-2 px-3 rounded-md">
                     Send

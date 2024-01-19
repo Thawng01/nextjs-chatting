@@ -1,19 +1,22 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { socket } from "@/lib/socket";
 import { useChattingStore } from "@/store";
 import ActiveUserItem from "./ActiveUserItem";
+import useScreenResize from "@/hooks/useScreenResize";
 
 interface OnlineUser {
     _id: string;
     username: string;
     socketId: string;
+    profile: string | undefined;
 }
 
 const ActiveUserLists = () => {
-    const [divWidth, setDivWidth] = useState(0);
     const [scrollWidth, setScrollWidth] = useState(0);
+    const divRef = useRef<HTMLDivElement | null>(null);
+    const divWidth = useScreenResize(divRef);
 
     const connected = useRef(socket.connected ? true : false);
 
@@ -22,10 +25,12 @@ const ActiveUserLists = () => {
     const updateOnlineUser = useChattingStore(
         (store) => store.updateOnlineUser
     );
+
     useEffect(() => {
         const userData = {
             _id: user?._id,
             username: user?.username,
+            profile: user.profile,
         };
 
         if (connected.current) {
@@ -43,20 +48,6 @@ const ActiveUserLists = () => {
             });
         }
     }, [user, updateOnlineUser]);
-
-    const divRef = useRef<HTMLDivElement | null>(null);
-
-    const getWidth = useCallback(() => {
-        setDivWidth(divRef.current?.offsetWidth!);
-    }, []);
-
-    useEffect(() => {
-        window.addEventListener("resize", getWidth);
-        getWidth();
-        return () => {
-            window.removeEventListener("resize", getWidth);
-        };
-    }, [getWidth]);
 
     const handleMove = (type: string) => {
         if (type === "next") {
@@ -89,6 +80,7 @@ const ActiveUserLists = () => {
                             <ActiveUserItem
                                 key={user._id}
                                 username={activeUser.username}
+                                profile={activeUser.profile}
                                 self={self}
                                 userId={activeUser._id}
                             />

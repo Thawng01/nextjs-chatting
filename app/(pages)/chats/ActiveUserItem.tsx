@@ -9,9 +9,10 @@ interface Props {
     username: string;
     self: boolean;
     userId: string;
+    profile: string | undefined;
 }
 
-const ActiveUserItem = ({ username, self, userId }: Props) => {
+const ActiveUserItem = ({ username, self, userId, profile }: Props) => {
     const router = useRouter();
     const me = useChattingStore((store) => store.user);
 
@@ -32,7 +33,12 @@ const ActiveUserItem = ({ username, self, userId }: Props) => {
              self ? "hidden" : "flex"
          }`}
         >
-            <Avatar username={username} profile="" height="h-12" width="w-12" />
+            <Avatar
+                username={username}
+                profile={profile}
+                height="h-12"
+                width="w-12"
+            />
 
             <div className="absolute h-3 w-3 bg-green-600 border-2 border-white rounded-full right-0 bottom-0" />
         </div>

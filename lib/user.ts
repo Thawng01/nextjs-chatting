@@ -19,3 +19,12 @@ export const updateUsername = async (form: FormData, id: string) => {
         console.log(error)
     }
 }
+
+export const searchUserByName = async (name: string) => {
+    try {
+        const res = await client.get(`/users/search/${name}`)
+        return { data: res.data, status: res.status }
+    } catch (error) {
+        console.log(error)
+    }
+}
