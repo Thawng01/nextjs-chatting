@@ -71,7 +71,7 @@ const ActiveUserLists = () => {
             >
                 {activeUsers.length === 1 ? (
                     <p className="text-center w-full text-[gray]">
-                        No active user currently.
+                        No currently active user.
                     </p>
                 ) : (
                     activeUsers.map((activeUser: OnlineUser) => {

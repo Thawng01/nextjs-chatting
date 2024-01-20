@@ -6,10 +6,10 @@
   scroll-behavior: smooth;
 }
 
-h1 {
+/* h1 {
   font-weight: bold;
   font-size:xx-large
-}
+} */
 
 ::-webkit-scrollbar-thumb {
   background-color: lightgray;

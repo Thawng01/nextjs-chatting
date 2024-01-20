@@ -26,57 +26,54 @@ const Register = () => {
     };
 
     return (
-        <div className="flex w-8/12 mx-auto h-screen items-center">
-            <AuthLogo />
-            <div className="w-full">
-                {error && <p className="text-[red]">{error}</p>}
-                <form onSubmit={handleSubmit} className="p-10 w-full">
-                    <Input
-                        type="username"
-                        label="Username"
-                        placeholder="username"
-                        id="username"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                    />
-                    <Input
-                        type="email"
-                        label="Email"
-                        placeholder="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                    <Input
-                        type="password"
-                        label="Password"
-                        id="password"
-                        placeholder="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
+        <div className="w-full">
+            {error && <p className="text-[red]">{error}</p>}
+            <form onSubmit={handleSubmit} className="p-3 md:p-10 w-full">
+                <Input
+                    type="username"
+                    label="Username"
+                    placeholder="username"
+                    id="username"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                />
+                <Input
+                    type="email"
+                    label="Email"
+                    placeholder="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                />
+                <Input
+                    type="password"
+                    label="Password"
+                    id="password"
+                    placeholder="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                />
 
-                    <Button
-                        type="submit"
-                        label="Register"
-                        isLoading={loading}
-                        loadingLabel="Logging..."
-                    />
-                </form>
-                <div className="px-10">
-                    <span>
-                        Already have an account?
-                        <Link
-                            href="/login"
-                            className="text-sky-600 font-medium ml-2"
-                        >
-                            Login
-                        </Link>
-                    </span>
-                </div>
+                <Button
+                    type="submit"
+                    label="Register"
+                    isLoading={loading}
+                    loadingLabel="Logging..."
+                />
+            </form>
+            <div className="px-10">
+                <span>
+                    Already have an account?
+                    <Link
+                        href="/login"
+                        className="text-sky-600 font-medium ml-2"
+                    >
+                        Login
+                    </Link>
+                </span>
             </div>
         </div>
     );

@@ -15,8 +15,8 @@ const Input = ({ id, label, value, onChange, name, ...otherProps }: Props) => {
     return (
         <div className="relative w-full h-12 rounded-lg my-6">
             <input
-                className="absolute border-2 border-[gray] w-full h-full peer placeholder-transparent
-                 focus:outline-none px-3 rounded-lg"
+                className="absolute border border-[gray] w-full h-full peer placeholder-transparent
+                 focus:outline-none px-3 rounded-md"
                 id={id}
                 name={name}
                 value={value}

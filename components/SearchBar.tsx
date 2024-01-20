@@ -59,6 +59,7 @@ const SearchBar = () => {
                             users?.map((user: User) => {
                                 return (
                                     <div
+                                        key={user._id}
                                         onClick={() =>
                                             handleSelectUser(user._id!)
                                         }

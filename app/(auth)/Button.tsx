@@ -12,7 +12,7 @@ const Button = ({ label, type, isLoading, loadingLabel }: Props) => {
         <button
             type={type}
             disabled={isLoading}
-            className="bg-sky-600 p-3 font-semibold rounded-lg text-white w-full disabled:opacity-40"
+            className="bg-sky-600 p-3 font-semibold rounded-md text-white w-full disabled:opacity-40"
         >
             {isLoading ? loadingLabel : label}
         </button>

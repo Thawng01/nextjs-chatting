@@ -4,7 +4,6 @@ import Input from "../Input";
 import Button from "../Button";
 import Link from "next/link";
 import useAuth from "@/hooks/useAuth";
-import AuthLogo from "../AuthLogo";
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -25,48 +24,45 @@ const Login = () => {
     };
 
     return (
-        <div className="flex w-8/12 mx-auto h-screen items-center">
-            <AuthLogo />
-            <div className="w-full">
-                <form onSubmit={handleSubmit} className="p-10 w-full">
-                    {error && <p className="text-[red]">{error}</p>}
-                    <Input
-                        type="email"
-                        label="Email"
-                        placeholder="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                    <Input
-                        type="password"
-                        label="Password"
-                        id="password"
-                        placeholder="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
+        <div className="w-full">
+            <form onSubmit={handleSubmit} className="p-3 md:p-10 w-full">
+                {error && <p className="text-[red]">{error}</p>}
+                <Input
+                    type="email"
+                    label="Email"
+                    placeholder="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                />
+                <Input
+                    type="password"
+                    label="Password"
+                    id="password"
+                    placeholder="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                />
 
-                    <Button
-                        type="submit"
-                        label="Login"
-                        isLoading={loading}
-                        loadingLabel="Logging..."
-                    />
-                </form>
-                <div className="px-10">
-                    <span>
-                        {"Don't have an account yet?"}
-                        <Link
-                            href="/register"
-                            className="text-sky-600 font-medium ml-2"
-                        >
-                            Register
-                        </Link>
-                    </span>
-                </div>
+                <Button
+                    type="submit"
+                    label="Login"
+                    isLoading={loading}
+                    loadingLabel="Logging..."
+                />
+            </form>
+            <div className="px-10">
+                <span>
+                    {"Don't have an account yet?"}
+                    <Link
+                        href="/register"
+                        className="text-sky-600 font-medium ml-2"
+                    >
+                        Register
+                    </Link>
+                </span>
             </div>
         </div>
     );
