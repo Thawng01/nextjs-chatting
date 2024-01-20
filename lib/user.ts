@@ -5,26 +5,27 @@ import { client, clientWithFile } from "@/axios/client"
 export const updateProfile = async (form: FormData, id: string) => {
 
     try {
-        return await clientWithFile.put(`/users/profile/${id}`, form)
+        const res = await clientWithFile.put(`/users/profile/${id}`, form)
+        return { message: res.data, status: res.status }
     } catch (error) {
-        console.log(error)
+        return { message: "Failed to update your profile.", status: 500 }
     }
 }
 export const updateUsername = async (form: FormData, id: string) => {
 
     try {
-        return await client.put(`/users/username/${id}`, form)
-
+        const res = await client.put(`/users/username/${id}`, form)
+        return { message: res.data, status: res.status }
     } catch (error) {
-        console.log(error)
+        return { message: "Failed to update your username.", status: 500 }
     }
 }
 
 export const searchUserByName = async (name: string) => {
     try {
         const res = await client.get(`/users/search/${name}`)
-        return { data: res.data, status: res.status }
+        return { message: res.data, status: res.status }
     } catch (error) {
-        console.log(error)
+        return { message: "No user found with the given Id.", status: 404 }
     }
 }

@@ -29,9 +29,9 @@ const AccountPage = () => {
             setProfile({ url: url, file: file });
             const form = new FormData();
             form.append("profile", file);
-            const res = await updateProfile(form, user._id!);
-            if (res?.status === 200) {
-                updateUser(res?.data);
+            const { message, status } = await updateProfile(form, user._id!);
+            if (status === 200) {
+                updateUser(message);
             }
         }
     };
@@ -40,9 +40,9 @@ const AccountPage = () => {
         e.preventDefault();
         const form = new FormData();
         form.append("username", username);
-        const res = await updateUsername(form, user._id!);
-        if (res?.status == 200) {
-            updateUser(res.data);
+        const { message, status } = await updateUsername(form, user._id!);
+        if (status == 200) {
+            updateUser(message);
             setEdit(false);
         }
     };
